@@ -35,7 +35,7 @@ const orderValidationSchema = Joi.object({
       Joi.object({
         imgURL: Joi.string().required(),
         name: Joi.string().required(),
-        price: Joi.string().required(),
+        price: Joi.number().required(),
         quantity: Joi.number().required(),
         shop: Joi.string().required(),
       })

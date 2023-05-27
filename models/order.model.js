@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const orderSchema = new Schema(
   {
@@ -22,5 +23,25 @@ const orderSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+const orderValidationSchema = Joi.object({
+  deliveryData: Joi.object({
+    address: Joi.string().required(),
+    email: Joi.string().email().required(),
+    name: Joi.string().required(),
+    phone: Joi.string().required(),
+  }).required(),
+  productsData: Joi.array()
+    .items(
+      Joi.object({
+        imgURL: Joi.string().required(),
+        name: Joi.string().required(),
+        price: Joi.string().required(),
+        quantity: Joi.number().required(),
+        shop: Joi.string().required(),
+      })
+    )
+    .required(),
+  totalPrice: Joi.number().required(),
+});
 const Order = model("Order", orderSchema);
-module.exports = Order;
+module.exports = { Order, orderValidationSchema };

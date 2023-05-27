@@ -38,6 +38,7 @@ const orderValidationSchema = Joi.object({
         price: Joi.number().required(),
         quantity: Joi.number().required(),
         shop: Joi.string().required(),
+        _id: Joi.string().optional(),
       })
     )
     .required(),
